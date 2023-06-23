@@ -1,8 +1,9 @@
 // || LIBRERIAS ||
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
+#include <string.h>
 #include <windows.h>
-#include <time.h>
 
 // || FUNCIONES Y PARAMETROS ||
 void menuPrincipal();
@@ -36,6 +37,7 @@ int main(){
 		
 		switch(opcion){
 			case 1:
+			ingresarProducto();
 			break;
 				
 			case 0:
@@ -59,9 +61,9 @@ int main(){
 // || FUNCION DEL MENU PRINCIPAL ||
 void menuPrincipal(){
 
-    printf("---------------- MENU PRINCIPAL ----------------\n");
+    printf("------------------- MENU PRINCIPAL -------------------\n");
     printf("[1] %c Agregar producto al carro de compras\n", 175);
-    printf("[2] %c Eliminar producto del carro de compras\n", 175);
+    printf("[2] %c Eliminar primer producto del carro de compras\n", 175);
     printf("[3] %c Mostrar productos en el carro de compras\n", 175);
     printf("[4] %c Crear cliente\n", 175);
     printf("[5] %c Eliminar cliente\n", 175);
@@ -72,12 +74,59 @@ void menuPrincipal(){
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
     printf("[0] %c Salir\n", 175);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-    printf("-----------------------------------------------\n");
+    printf("------------------------------------------------------\n");
     printf("Ingresa la opci%cn que desees: ", 162); }
 
 // || FUNCION PARA AGREGAR PRODUCTO AL CARRITO ||
 void ingresarProducto(){
+
+    FILE *fp;
+    fp=fopen("inventario.txt", "ab");
 	
+	fflush(stdin);
+    int nroProducto, i; system("cls");
+    printf("--- AGREGAR PRODUCTO AL CARRITO ---\n");
+    printf("    ---------------------------\n");
+    printf("  %cCu%cntos productos desea a%cadir?\n", 168, 160, 164);
+    printf("-----------------------------------\n");
+    printf("Ingrese aqu%c la cantidad: ", 161);
+    scanf("%d",&nroProducto);
+
+    for (i=0; i<nroProducto; i++) {
+        fflush(stdin);
+        Producto productoNuevo;
+        system("cls");
+        printf("---------- APARTADO DE INGRESAR PRODUCTO ----------\n");
+        printf("                PRODUCTO N%cMERO: [%d]\n", 233, i+1);
+        printf("---------------------------------------------------\n");
+        printf("Nombre del art%cculo a a%cadir: ", 161, 164);
+        gets(productoNuevo.nombre);
+        
+        printf("C%cdigo del art%cculo a a%cadir: ", 162, 161, 164);
+        scanf("%d",&productoNuevo.codigo);
+        fflush(stdin);
+
+        printf("Precio del art%cculo a a%cadir: ", 161, 164);
+        scanf("%d",&productoNuevo.precio);
+        fflush(stdin);
+        printf("N%cmero de stock del art%cculo a a%cadir: ", 163, 161, 164);
+        scanf("%d",&productoNuevo.existencia);
+        fflush(stdin);
+        
+        printf("---------------------------------------------------\n");
+        printf("A%cadiendo producto a su carro, espere un momento...\n", 164);
+        printf("---------------------------------------------------\n");
+        sleep(3);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
+        printf("      Producto a%cadido al carrito con %cxito\n", 164, 130);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+        printf("---------------------------------------------------\n");
+		
+		system("pause");
+        // fwrite(&productoNuevo, sizeof(Producto), 1, fp);
+    }
+
+    fclose(fp);
 }
 
 
